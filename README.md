@@ -189,7 +189,10 @@ Lombok是一个Java库，能自动插入编辑器并构建工具，简化Java开
 	<artifactId>commons-codec</artifactId>
 	<version>1.10</version>
 </dependency>
-<!-- 工具包：如字符串处理 -->
+<!-- 工具包：如字符串处理 Splitter 
+	List<String> strList = Splitter.on(",").trimResults().omitEmptyStrings().splitToList(str);
+	List<Integer> strList = strList.stream().map(strItem -> Integer.parseInt(strItem)).collect(Collectors.toList());
+-->
 <dependency>
 	<groupId>org.apache.commons</groupId>
 	<artifactId>commons-lang3</artifactId>
