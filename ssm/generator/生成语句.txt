@@ -1,0 +1,5 @@
+命令：
+    java -jar mybatis-generator-core-1.3.2.jar -configfile generator.xml -overwrite
+
+   注意：1. jar包路径必须与 gernerator.xml中的 <classPathEntry location="D:/mysql-connector-java-5.1.34.jar" /> 的路径一致。
+        2. 路径中一定不要有中文

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <!-- 三个标签：允许多个 appender、logger
+        appender 定义日志的输出形式
+        logger  日志的名称（通常给logger指定一个appender）
+        root    日志的级别  TRACE < DEBUG < INFO < WARN < ERROR
+    -->
+
+    <!-- 输出道控制台 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- RollingFileAppender 压缩日志并输出 -->
+    <appender name="permission" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 把日志定位道 tomcat 主路径上的 logs 下 -->
+        <file>${catalina.home}/logs/permission.log</file>
+        <!-- 根据时间压缩 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${catalina.home}/logs/permission.%d{yyyy-MM-dd}.log.gz</FileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- 当我代码里的 log name 与这的 name 相等的时候就会使用这 permission -->
+    <logger name="xxx" level="INFO">
+        <appender-ref ref="permission"/>
+    </logger>
+
+
+    <!-- TRACE < DEBUG < INFO < WARN < ERROR -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+
+</configuration>

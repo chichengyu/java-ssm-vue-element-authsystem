@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 上下文的注解会自动被 bean 管理 -->
+    <context:annotation-config />
+
+    <!-- 扫描controller的注解 -->
+    <context:component-scan base-package="cn.xiaochi.controller"/>
+    <context:component-scan base-package="cn.xiaochi.service"/>
+
+    <!-- mvc 注解驱动 -->
+    <mvc:annotation-driven />
+
+    <!--====== 全局异常处
+         SpringExceptionResolver 全局接管异常类（自定义） 继承 HandlerExceptionResolver
+         BeanNameViewResolver
+         MappingJackson2JsonView
+    =======-->
+    <!-- 接管异常 -->
+<!--    <bean class="cn.xiaochi.common.SpringExceptionResolver"/>-->
+<!--    <bean id="exceptionHandler" class="cn.xiaochi.exception.SpringExceptionResolver"/>-->
+    <!-- 以什么样的格式返回数据 做试图渲染 -->
+<!--    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />-->
+    <!-- 返回 jsop 数据的时候，以 MappingJackson2JsonView 类来处理 -->
+<!--    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />-->
+
+
+    <!-- spring 启动时加载该自定义全局工具 ， 获取 spring 的上下文 ，并且是非 懒加载 -->
+    <bean class="cn.xiaochi.common.ApplicationContextHelper" lazy-init="false"/>
+
+    <!-- 配置自定义 http 请求监听工具类 HttpInterceptor -->
+    <mvc:interceptors>
+        <bean class="cn.xiaochi.common.HttpInterceptor"/>
+    </mvc:interceptors>
+
+    <!-- 配置视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 配置静态资源路径 spring 默认静态目录 static，这里因为我在 web.xml文件中处理了，此处不用配置 -->
+    <!-- <mvc:resources mapping="/css/**" location="/css/"/> -->
+    <!-- <mvc:resources mapping="/js/**" location="/js/"/> -->
+    <!-- <mvc:resources mapping="/images/**" location="/images/"/> -->
+<!--     <mvc:resources mapping="/static/**" location="/static/"/>-->
+
+</beans>
