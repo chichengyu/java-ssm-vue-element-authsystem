@@ -2,7 +2,8 @@
 
 #### 介绍
 
-项目用到了 mybaties、spring、vue、element的权限后台管理系统，项目没有做完
+项目用到了 mybaties、spring、vue、element的权限后台管理系统，项目没有做完。  
+用到的util有：BeanValidator、IpUtil、JsonMapper、MailUtil、MD5Util、PasswordUtil(生成随机密码)
 
 #### 用到的jar包
 
