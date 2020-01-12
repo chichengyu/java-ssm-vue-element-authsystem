@@ -23,11 +23,11 @@ public class MailUtil {
     public static boolean send(String subject, String message, Set<String> receivers) {
 
         // TODO
-        String from = "";
         int port = 25;
         String host = "";
         String pass = "";
-        String nickname = "";
+        String nickname = "";// 发件人昵称
+        String from = "";// 发件人邮件
 
         HtmlEmail email = new HtmlEmail();
         try {
@@ -38,7 +38,7 @@ public class MailUtil {
             }
             email.setFrom(from, nickname);
             email.setSmtpPort(port);
-            email.setAuthentication(from, pass);
+            email.setAuthentication(from, pass);// 邮件服务器验证：用户名/密码，如果你的邮件服务器设置了密码，请输入密码，否则此语句可以忽略
             email.setSubject(subject);
             email.setMsg(message);
             email.send();
